@@ -1,0 +1,33 @@
+#include <iostream>
+#include<Windows.h>
+#include<string>
+using namespace std;
+int main()
+{
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+    int i = 0, a;
+    char ABC[] =
+    {
+                'а','б','в','г','д','е','ё','ж','з','и',
+                'й','к','л','м','н','о','п','р','с',
+                'т','у','ф','х','ц','ч','ш','щ','ъ',
+                'ы','ь','э','ю','я'
+    };
+    char msg[150];
+    cout << "Введите сообщение на русском языке строчными буквами, которое будет закодировано шифром Цезаря: " << endl;
+    cin.getline(msg, 200);
+    cout << "\nВведите сдвиг:" << endl;
+    cin >> a; // сдвиг букв в словах
+    cout << endl;
+    char* begin = ABC;
+    char* end = ABC + sizeof(ABC);
+    for (; msg[i]; ++i) 
+    {
+        char* ch = find(begin, end, msg[i]);
+        if (ch != end) msg[i] = *(begin + (ch - begin + a) % sizeof(ABC));
+    }
+    cout << "Закодированная фраза: " << endl;
+    cout << msg << endl; // вывод результата
+    return 0;
+}
